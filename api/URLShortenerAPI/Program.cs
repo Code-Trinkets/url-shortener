@@ -7,6 +7,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region configuration setup
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory());
+builder.Configuration.AddJsonFile("appsettings.json", optional: false);
+builder.Configuration.AddEnvironmentVariables();
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
