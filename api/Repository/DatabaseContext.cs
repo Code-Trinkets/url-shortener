@@ -62,6 +62,19 @@ namespace repository
 
         public async Task<bool> CheckIdentifierExists(string identifier)
         {
+            string? result = await RetrieveURLFromDatabase(identifier);
+
+            return result is not null;
+        }
+
+        public async Task<string?> GetLongURL(string identifier)
+        {
+            return await RetrieveURLFromDatabase(identifier);
+        }
+
+        #region helpers
+        private async Task<string?> RetrieveURLFromDatabase(string identifier)
+        {
             var collection = this.client.GetDatabase(this.databaseName).GetCollection<URLMapping>("urls");
 
             var filter = Builders<URLMapping>.Filter
@@ -69,8 +82,9 @@ namespace repository
 
             URLMapping? result = await collection.Find(filter).FirstOrDefaultAsync();
 
-            return result is not null;
+            return result?.Long;
         }
+        #endregion
     }
 }
 
