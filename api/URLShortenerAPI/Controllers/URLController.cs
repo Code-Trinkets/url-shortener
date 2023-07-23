@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using model;
 using service;
 
 namespace URLShortenerAPI.Controllers
@@ -21,6 +22,20 @@ namespace URLShortenerAPI.Controllers
         }
         #endregion
 
+        [HttpPost]
+        public async Task<IActionResult> GenerateShortURL([FromBody] GenerateURLRequest requestInfo)
+        {
+            APIResponse response;
+            try
+            {
+                response = await service.GenerateShortURLMethod(requestInfo.LongURL);
+            }
+            catch(Exception ex)
+            {
+                response = new(StatusCodes.Status500InternalServerError, exception: ex);
+            }
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }
 

@@ -59,6 +59,18 @@ namespace repository
 
             return mapping.Id;
         }
+
+        public async Task<bool> CheckIdentifierExists(string identifier)
+        {
+            var collection = this.client.GetDatabase(this.databaseName).GetCollection<URLMapping>("urls");
+
+            var filter = Builders<URLMapping>.Filter
+                .Eq(entry => entry.Identifier, identifier);
+
+            URLMapping? result = await collection.Find(filter).FirstOrDefaultAsync();
+
+            return result is not null;
+        }
     }
 }
 
