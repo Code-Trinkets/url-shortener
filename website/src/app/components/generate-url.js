@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Image } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
+import settings from "../appsettings.json";
 import CopySVGImage from "../../assets/copy.svg";
 import CheckSVGImage from "../../assets/check.svg";
 
@@ -15,17 +16,53 @@ export default function GenerateURL() {
     // Constants
     const inputField = "inputUrl";
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         //  Don't reload the page
         event.preventDefault();
 
         // Parsing the form data.
         var formData = new FormData(event.target);
         
+        let longUrl;
         for (const [key, value] of formData.entries())
-            if (key == inputField) console.log(value);
+            if (key == inputField) longUrl = value;
+        
+        let shortUrl = await getShortenedUrl(longUrl);
 
-        console.log(CopySVGImage);
+        if (shortUrl === null) {
+            toast.error("There was an internal error.");
+            return;
+        }
+
+        setOutputField(shortUrl);
+        setBtnCopyDisabled(false);
+    }
+
+    async function getShortenedUrl(longUrl) {
+        const url = settings.APIUrl + "api/url";
+
+        let result;
+        try {
+            result = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    longURL: longUrl
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            });
+        }
+        catch(err) {
+            console.log(err);
+            return null;
+        }
+        let response = await result.json();
+        
+        if (response.statusCode == 201)
+            return response.data;
+        
+        return null;
     }
 
     function handleCopy(event) {
