@@ -36,6 +36,22 @@ namespace URLShortenerAPI.Controllers
             }
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpGet]
+        [Route("{identifier}")]
+        public async Task<IActionResult> GetLongURL(string identifier)
+        {
+            APIResponse response;
+            try
+            {
+                response = await service.GetLongURLMethod(identifier);
+            }
+            catch(Exception ex)
+            {
+                response = new(StatusCodes.Status500InternalServerError, exception: ex);
+            }
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }
 

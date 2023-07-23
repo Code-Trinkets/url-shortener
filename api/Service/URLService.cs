@@ -52,6 +52,18 @@ namespace service
             
         }
 
+        public async Task<APIResponse> GetLongURLMethod(string identifier)
+        {
+            string? longUrl = await GetLongURL(identifier);
+
+            APIResponse response;
+            if (longUrl is null)
+                response = new(StatusCodes.Status404NotFound, message: "There was no URL found with that identifier.", success: false);
+            else
+                response = new(StatusCodes.Status200OK, longUrl, success: true);
+            return response;
+        }
+
         #region helpers
         private string GenerateRandomIdentifier()
         {
@@ -82,6 +94,11 @@ namespace service
         private async Task<bool> CheckIdentifierExists(string identifier)
         {
             return await this.context.CheckIdentifierExists(identifier);
+        }
+
+        private async Task<string?> GetLongURL(string identifier)
+        {
+            return await this.context.GetLongURL(identifier);
         }
         #endregion
     }
