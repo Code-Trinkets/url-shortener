@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using service;
 
 namespace URLShortenerAPI.Controllers
 {
     [Route("api/[controller]")]
     public class URLController : Controller
     {
-        [HttpGet]
-        public string TestMethod()
+        #region class fields and consructor
+        private readonly IConfiguration configuration;
+        private readonly IURLService service;
+
+        public URLController(IConfiguration configuration, IURLService service)
         {
-            return "Hello World!";
+            this.configuration = configuration;
+            this.service = service;
         }
+        #endregion
+
     }
 }
 
