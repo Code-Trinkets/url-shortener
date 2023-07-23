@@ -1,27 +1,82 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Varela+Round&display=swap');
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #f9f9f9;
+  margin: 0;
+}
+
+.header {
+  background-color: white;
+  text-align: center;
+  padding: 1%;
+  -webkit-box-shadow: 1px -4px 4px 7px #333333; 
+  box-shadow: 1px -4px 4px 7px #333333;
+}
+
+.header h1, .divAbout h1, .divGenerateUrl h1 {
+  font-size: 2em;
+  font-family: 'Inter', sans-serif;
+  color: #505050;
+  font-weight: bold;
+}
+
+.divAbout p {
+  font-family: 'Inter', sans-serif;
+  color: #505050;
+  text-align: center;
+  line-height: 180%;
+}
+
+.header h1:hover {
+  cursor: default;
+}
+
+.divGenerateUrl, .divAbout {
+  padding: 2%;
+  height: 40%;
+  width: 40%;
+  background-color: white;
+  margin-top: 4% !important;
+  margin: auto;
+  text-align: center;
+  -webkit-box-shadow: 0px 0px 4px 1px #BFBFBF; 
+  box-shadow: 0px 0px 4px 1px #BFBFBF;
+}
+
+img {
+  filter: invert(64%) sepia(0%) saturate(0%) hue-rotate(75deg) brightness(99%) contrast(91%) !important;
+}
+
+form {
+  display:flex;
+  flex-direction:row;
+  border:1px solid grey;
+}
+
+input {
+  flex-grow:2;
+  padding: 2%;
+  border:none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.btnSubmit {
+  border-radius: 0px !important;
+  font-family: 'Inter' !important;
+  font-weight: bold !important;
+}
+
+.btnCopy {
+  border-radius: 0px !important;
+  background-color: white !important;
+  border-top-style: none !important;
+  border-bottom-style: none !important;
+  border-right-style: none !important;
+}
+
+input:disabled, button:disabled {
+  background-color: #e6e6e6 !important;
 }
