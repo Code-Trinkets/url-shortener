@@ -13,14 +13,14 @@ body {
   box-shadow: 1px -4px 4px 7px #333333;
 }
 
-.header h1, .divAbout h1, .divGenerateUrl h1 {
+.header h1, .divAbout h1, .divGenerateUrl h1, .divRedirect h1 {
   font-size: 2em;
   font-family: 'Inter', sans-serif;
   color: #505050;
   font-weight: bold;
 }
 
-.divAbout p {
+.divAbout p, .pRedirectFail {
   font-family: 'Inter', sans-serif;
   color: #505050;
   text-align: center;
@@ -38,6 +38,18 @@ body {
   background-color: white;
   margin-top: 4% !important;
   margin: auto;
+  text-align: center;
+  -webkit-box-shadow: 0px 0px 4px 1px #BFBFBF; 
+  box-shadow: 0px 0px 4px 1px #BFBFBF;
+}
+
+.divRedirect {
+  padding: 2%;
+  height: 40%;
+  width: 40%;
+  background-color: white;
+  margin: auto;
+  margin-top: 15%;
   text-align: center;
   -webkit-box-shadow: 0px 0px 4px 1px #BFBFBF; 
   box-shadow: 0px 0px 4px 1px #BFBFBF;
