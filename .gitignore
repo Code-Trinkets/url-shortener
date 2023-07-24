@@ -402,3 +402,6 @@ FodyWeavers.xsd
 
 # MAC
 **/.DS_Store
+
+# Firebase
+**/.firebase
