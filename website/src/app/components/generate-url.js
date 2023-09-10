@@ -4,14 +4,18 @@ import { Image } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
 import settings from "../appsettings.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
 import CopySVGImage from "../../assets/copy.svg";
 import CheckSVGImage from "../../assets/check.svg";
+import { neue } from "@/assets/fonts";
 
 export default function GenerateURL() {
     // Stateful variables
     const [outputField, setOutputField] = useState("Your short URL will appear here.");
     const [outputImageSrc, setOutputImageSrc] = useState(CopySVGImage.src);
     const [btnCopyDisabled, setBtnCopyDisabled] = useState(true);
+    const [copied, setCopied] = useState(false);
 
     // Constants
     const inputField = "inputUrl";
@@ -71,6 +75,8 @@ export default function GenerateURL() {
 
         // Copy data to the clipboard.
         navigator.clipboard.writeText(outputField);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 6000);
 
         // Toaster
         toast.success("Copied!", {
@@ -85,16 +91,31 @@ export default function GenerateURL() {
     }
     return(
         <div className="divGenerateUrl">
-            <h1>Shorten a URL</h1>
+            <h1 className={`${neue.className}`}>Shorten a URL</h1>
             <form method="post" onSubmit={handleSubmit} className="formGenerateUrl">
                 <input type="text" name={inputField}/>
-                <Button variant="secondary" className="btnSubmit" type="submit">Shorten</Button>
+                <Button variant="secondary" className={`btnSubmit ${neue.className}`} type="submit">Shorten</Button>
             </form>
             <br />
             <form onSubmit={handleCopy}>
                 <input type="text" disabled value={outputField}/>
-                <Button variant="secondary" className="btnCopy" disabled={btnCopyDisabled} type="submit">
-                    <Image src={outputImageSrc} width={30} height={30}/>
+                <Button className="btnCopy" disabled={btnCopyDisabled} type="submit">
+                    {
+                        !copied &&
+                        <FontAwesomeIcon
+                            className={`iconCopy`}
+                            icon={faCopy}
+                            style={{ fontSize: 22 }}
+                        />
+                    }
+                    {
+                        copied &&
+                        <FontAwesomeIcon
+                            className={`iconCopy`}
+                            icon={faCheck}
+                            style={{ fontSize: 22 }}
+                        />
+                    }
                 </Button>
             </form>
         </div>

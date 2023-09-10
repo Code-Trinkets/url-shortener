@@ -5,6 +5,9 @@ import settings from "../appsettings.json";
 import { toast } from "react-toastify";
 import LoadingGIF from "../../assets/loading.gif";
 import { Image } from "react-bootstrap";
+import { neue } from "@/assets/fonts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function RedirectToURL({ params }) {
     const [redirecting, setRedirecting] = useState(true);
@@ -41,8 +44,13 @@ export default function RedirectToURL({ params }) {
     if (redirecting) {
         return (
             <div className="divRedirect">
-                <h1 className="h1Redirect">Redirecting...</h1>
-                <Image src={LoadingGIF.src} width={30} height={30}/>
+                <h1 className={`h1Redirect ${neue.className}`}>Redirecting...</h1>
+                <FontAwesomeIcon
+                    pulse
+                    className={`iconSpinner`}
+                    icon={faSpinner}
+                    style={{ fontSize: 22 }}
+                />
             </div>
         )
     }
